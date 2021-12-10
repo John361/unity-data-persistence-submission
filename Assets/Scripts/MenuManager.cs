@@ -54,7 +54,14 @@ public class MenuManager : MonoBehaviour
     {
         SceneManager.LoadScene(1);
 
-        this.playerData.name = this.menuCanvasController.GetPlayerName();
+        string inputPlayerName = this.menuCanvasController.GetPlayerName();
+
+        if (this.playerData.name != inputPlayerName)
+        {
+            this.playerData.bestScore = 0;
+        }
+
+        this.playerData.name = inputPlayerName;
         this.playerPersistor.Save(this.playerData);
     }
 
