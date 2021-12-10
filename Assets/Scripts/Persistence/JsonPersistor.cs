@@ -40,4 +40,9 @@ public abstract class JsonPersistor<T> : IPersistable<T>
     {
         return this.fileName + ".json";
     }
+
+    protected string GetFullFilePath()
+    {
+        return Application.persistentDataPath + Path.PathSeparator + this.GetFileNameWithExtension();
+    }
 }
