@@ -12,13 +12,12 @@ public abstract class JsonPersistor<T> : IPersistable<T>
 
     public T Load()
     {
-        string path = Application.persistentDataPath + this.GetFileNameWithExtension();
-
-        if (File.Exists(path))
+        if (!this.DataExists())
         {
             throw new FileNotFoundException("File not found");
         }
 
+        string path = Application.persistentDataPath + this.GetFileNameWithExtension();
         string json = File.ReadAllText(path);
         T obj = JsonUtility.FromJson<T>(json);
 
@@ -29,6 +28,12 @@ public abstract class JsonPersistor<T> : IPersistable<T>
     {
         string json = JsonUtility.ToJson(obj);
         File.WriteAllText(Application.persistentDataPath + this.GetFileNameWithExtension(), json);
+    }
+
+    public bool DataExists()
+    {
+        string path = Application.persistentDataPath + this.GetFileNameWithExtension();
+        return File.Exists(path);
     }
 
     protected string GetFileNameWithExtension()
