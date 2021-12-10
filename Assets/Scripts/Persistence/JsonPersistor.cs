@@ -17,7 +17,7 @@ public abstract class JsonPersistor<T> : IPersistable<T>
             throw new FileNotFoundException("File not found");
         }
 
-        string path = Application.persistentDataPath + this.GetFileNameWithExtension();
+        string path = this.GetFullFilePath();
         string json = File.ReadAllText(path);
         T obj = JsonUtility.FromJson<T>(json);
 
@@ -27,12 +27,14 @@ public abstract class JsonPersistor<T> : IPersistable<T>
     public void Save(T obj)
     {
         string json = JsonUtility.ToJson(obj);
-        File.WriteAllText(Application.persistentDataPath + this.GetFileNameWithExtension(), json);
+        File.WriteAllText(this.GetFullFilePath(), json);
     }
 
     public bool DataExists()
     {
-        string path = Application.persistentDataPath + this.GetFileNameWithExtension();
+        Debug.Log(this.GetFullFilePath());
+
+        string path = this.GetFullFilePath();
         return File.Exists(path);
     }
 
@@ -43,6 +45,6 @@ public abstract class JsonPersistor<T> : IPersistable<T>
 
     protected string GetFullFilePath()
     {
-        return Application.persistentDataPath + Path.PathSeparator + this.GetFileNameWithExtension();
+        return Application.persistentDataPath + "/" + this.GetFileNameWithExtension();
     }
 }
