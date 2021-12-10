@@ -10,6 +10,7 @@ public class MainManager : MonoBehaviour
     public int LineCount = 6;
     public Rigidbody Ball;
 
+    public Text PlayerBestScoreText;
     public Text ScoreText;
     public GameObject GameOverText;
     
@@ -18,10 +19,15 @@ public class MainManager : MonoBehaviour
     
     private bool m_GameOver = false;
 
-    
+    private PlayerPersistor m_playerPersistor;
+    private PlayerData m_playerData;
+
     // Start is called before the first frame update
     void Start()
     {
+        m_playerPersistor = new PlayerPersistor();
+        LoadPlayerData();
+
         const float step = 0.6f;
         int perLine = Mathf.FloorToInt(4.0f / step);
         
@@ -70,7 +76,16 @@ public class MainManager : MonoBehaviour
 
     public void GameOver()
     {
+        m_playerData.bestScore = m_Points;
+        m_playerPersistor.Save(m_playerData);
+
         m_GameOver = true;
         GameOverText.SetActive(true);
+    }
+
+    private void LoadPlayerData()
+    {
+        m_playerData = MenuManager.GetPlayer(); // could also be done by using PlayerPersistor but I did it in this way for submission requirements
+        PlayerBestScoreText.text = "Best Score : " + m_playerData.name + " : " + m_playerData.bestScore;
     }
 }
