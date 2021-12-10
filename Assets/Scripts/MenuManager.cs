@@ -72,13 +72,13 @@ public class MenuManager : MonoBehaviour
 #endif
     }
 
-    public MenuManager GetInstance()
+    public static MenuManager GetInstance()
     {
         return MenuManager.instance;
     }
 
-    public PlayerData GetPlayer()
+    public static PlayerData GetPlayer()
     {
-        return this.playerData;
+        return MenuManager.GetInstance().playerData;
     }
 }
