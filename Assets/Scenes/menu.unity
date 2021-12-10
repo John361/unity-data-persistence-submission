@@ -1879,3 +1879,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bestScoreText: {fileID: 531801008}
   playerNameInput: {fileID: 649175501}
+  startButton: {fileID: 293385029}

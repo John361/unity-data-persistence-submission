@@ -32,8 +32,6 @@ public abstract class JsonPersistor<T> : IPersistable<T>
 
     public bool DataExists()
     {
-        Debug.Log(this.GetFullFilePath());
-
         string path = this.GetFullFilePath();
         return File.Exists(path);
     }
